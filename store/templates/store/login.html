@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
-<from name="login_form">
-    <input name="username" placeholder="name">
-    <input name="password">
+<from id="login_form" action="" method="POST">
+    <input name="username" placeholder="username">
+    <input name="password" placeholder="password">
+    <button name="submit">ارسال</button>
 
 </from>
+
+<div id="errors">
+    <strong>{{ error|escape }}</strong>
+</div>
 
 
 
