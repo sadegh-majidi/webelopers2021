@@ -1,5 +1,9 @@
+{% extends 'store/base.html' %}
+{% block content %}
 
-<form id="register_form" action="" method="POST">
+<form id="register_form" action="{% url 'signup' %}" method="POST" class="form">
+    {% csrf_token %}
+
     <input name="first_name">
     <input name="last_name">
     <input name="username">
@@ -9,3 +13,5 @@
     <button name="submit">ارسال</button>
 
 </form>
+
+{% endblock %}
