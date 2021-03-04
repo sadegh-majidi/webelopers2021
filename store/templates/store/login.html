@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
-<from id="login_form" action="" method="POST">
-    <input name="username" placeholder="username">
-    <input name="password" placeholder="password">
-    <button name="submit">ارسال</button>
+{% extends 'store/base.html' %}
+{% block content %}
 
-</from>
+    <form id="login_form" action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+        <input name="username" placeholder="username">
+        <input name="password" placeholder="password">
+        <button name="submit">ارسال</button>
 
-<div id="errors">
-    <strong>{{ error|escape }}</strong>
-</div>
+    </form>
 
 
+    <div id="errors">
+        {% if error %}
+            <strong>{{ error|escape }}</strong>
+        {% endif %}
+    </div>
 
-</html>
+
+{% endblock %}

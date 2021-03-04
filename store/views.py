@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from store.forms import CustomSignUpForm
@@ -11,9 +13,38 @@ def signup_page(request):
     return render(request=request, template_name='store/register.html', context={})
 
 
+def login_page(request):
+    return render(request=request, template_name='store/login.html', context={})
+
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return render(request=request, template_name='store/login.html', context={'error': 'username is not valid'})
+        else:
+            if not user.check_password(password):
+                return render(request=request, template_name='store/login.html',
+                              context={'error': 'password is not valid'})
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print('success')
+            return redirect('home_page')
+
+
 def signup(request):
     if request.method == 'POST':
         signup_form = CustomSignUpForm(request.POST)
         if signup_form.is_valid():
             signup_form.save()
         return redirect('home_page')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home_page')

@@ -4,7 +4,11 @@
     <body dir="rtl">
 
         <div id="navbar">
-          <a id="login" href="https://google.com">Login</a>
+            {% if user.is_authenticated %}
+                <a id="logout" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a id="login" href="{% url 'login_page' %}">Login</a>
+            {% endif %}
           <a id="register" href="{% url 'signup_page' %}">Register</a>
           <a id="homepage" href="/">Home</a>
         </div>
