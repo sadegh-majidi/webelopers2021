@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from store.forms import CustomSignUpForm, ContactUsForm
+from store.forms import CustomSignUpForm, ContactUsForm, CreateProductForm
 
 
 def index(request):
@@ -63,3 +63,15 @@ def contact_us_page(request):
 
 def dashboard(request):
     return render(request=request, template_name='store/dashboard.html', context={})
+
+
+def create_new_product(request):
+    if request.method == 'GET':
+        return render(request=request, template_name='store/create_product.html', context={})
+    if request.method == 'POST':
+        product_form = CreateProductForm(request.POST)
+        if product_form.is_valid():
+            product_form.save()
+            return redirect('dashboard')
+        else:
+            return render(request=request, template_name='store/create_product.html', context={})

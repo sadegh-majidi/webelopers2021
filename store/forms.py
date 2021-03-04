@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 
-from store.models import ContactRequest
+from store.models import ContactRequest, Product
 
 
 class CustomSignUpForm(forms.ModelForm):
@@ -60,4 +60,7 @@ class ContactUsForm(forms.ModelForm):
         return contact_request
 
 
-
+class CreateProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'quantity', 'price',)
