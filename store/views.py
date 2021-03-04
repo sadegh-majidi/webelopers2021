@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from store.forms import CustomSignUpForm, ContactUsForm, CreateProductForm
+from store.models import Seller
 
 
 def index(request):
@@ -40,7 +41,6 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print('success')
             return redirect('home_page')
 
 
@@ -62,7 +62,7 @@ def contact_us_page(request):
 
 
 def dashboard(request):
-    return render(request=request, template_name='store/dashboard.html', context={})
+    return render(request=request, template_name='store/dashboard.html', context=request.META.get('context', {}))
 
 
 def create_new_product(request):
@@ -75,3 +75,13 @@ def create_new_product(request):
             return redirect('dashboard')
         else:
             return render(request=request, template_name='store/create_product.html', context={})
+
+
+def become_seller(request):
+    if not hasattr(request.user, 'seller'):
+        Seller.objects.create(user=request.user)
+        request.META['context'] = {'success': 'با موفقیت فروشنده شدید'}
+        return dashboard(request)
+    else:
+        request.META['context'] = {'error': 'شما فروشنده هستید'}
+        return dashboard(request)
