@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from store.forms import CustomSignUpForm
+from store.forms import CustomSignUpForm, ContactUsForm
 
 
 def index(request):
@@ -47,3 +47,15 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     return redirect('home_page')
+
+
+def contact_us_page(request):
+    if request.method == 'GET':
+        return render(request=request, template_name='store/contact_us.html', context={})
+    if request.method == 'POST':
+        contact_form = ContactUsForm(request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+            return render(request=request, template_name='store/done.html', context={})
+        else:
+            return redirect('contact_us')

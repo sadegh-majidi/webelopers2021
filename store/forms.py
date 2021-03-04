@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+
+from store.models import ContactRequest
 
 
 class CustomSignUpForm(forms.ModelForm):
@@ -30,3 +33,31 @@ class CustomSignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ContactUsForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    text = forms.CharField(min_length=10, max_length=250, required=True)
+
+    class Meta:
+        model = ContactRequest
+        fields = ('title', 'email', 'text',)
+
+    def save(self, commit=True):
+        contact_request = ContactRequest.objects.create(
+            title=self.cleaned_data['title'],
+            email=self.cleaned_data['email'],
+            text=self.cleaned_data['text']
+        )
+        # send_mail(
+        #     contact_request.title,
+        #     f'{contact_request.text} {contact_request.email}',
+        #     'sadeghmajidiyazdi@gmail.com',
+        #     ['sadegh0211380@gmail.com'],
+        #     fail_silently=False,
+        # )
+        return contact_request
+
+
+

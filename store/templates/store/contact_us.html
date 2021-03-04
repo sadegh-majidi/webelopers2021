@@ -1,0 +1,13 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+    <form id="contact_us_form" action="{% url 'contact_us' %}" method="POST">
+    {% csrf_token %}
+        <input name="title" placeholder="title">
+        <input name="email" placeholder="email">
+        <textarea name="text"></textarea>
+        <button name="submit">ارسال</button>
+
+    </form>
+
+{% endblock %}
