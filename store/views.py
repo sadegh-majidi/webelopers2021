@@ -59,3 +59,7 @@ def contact_us_page(request):
             return render(request=request, template_name='store/done.html', context={})
         else:
             return redirect('contact_us')
+
+
+def dashboard(request):
+    return render(request=request, template_name='store/dashboard.html', context={})
