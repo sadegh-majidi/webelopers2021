@@ -14,4 +14,10 @@
 
 </form>
 
+    <div id="errors">
+        {% if error %}
+            <strong>{{ error|escape }}</strong>
+        {% endif %}
+    </div>
+
 {% endblock %}

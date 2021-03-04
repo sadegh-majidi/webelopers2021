@@ -42,6 +42,9 @@ def signup(request):
         signup_form = CustomSignUpForm(request.POST)
         if signup_form.is_valid():
             signup_form.save()
+        else:
+            return render(request=request, template_name='store/register.html',
+                          context={'error': dict(signup_form.errors.items())['__all__'][0]})
         return redirect('home_page')
 
 
