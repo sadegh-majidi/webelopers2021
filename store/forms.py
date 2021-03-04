@@ -50,13 +50,13 @@ class ContactUsForm(forms.ModelForm):
             email=self.cleaned_data['email'],
             text=self.cleaned_data['text']
         )
-        # send_mail(
-        #     contact_request.title,
-        #     f'{contact_request.text} {contact_request.email}',
-        #     'sadeghmajidiyazdi@gmail.com',
-        #     ['sadegh0211380@gmail.com'],
-        #     fail_silently=False,
-        # )
+        send_mail(
+            contact_request.title,
+            f'{contact_request.text} {contact_request.email}',
+            'sadeghmajidiyazdi@gmail.com',
+            ['sadegh0211380@gmail.com'],
+            fail_silently=False,
+        )
         return contact_request
 
 
