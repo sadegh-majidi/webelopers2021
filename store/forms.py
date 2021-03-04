@@ -54,7 +54,7 @@ class ContactUsForm(forms.ModelForm):
             contact_request.title,
             f'{contact_request.text} {contact_request.email}',
             'sadeghmajidiyazdi@gmail.com',
-            [contact_request.email],
+            ['webe21lopers@gmail.com'],
             fail_silently=False,
         )
         return contact_request
