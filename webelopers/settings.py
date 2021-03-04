@@ -122,3 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '50b5150bb3ce6d'
+EMAIL_HOST_PASSWORD = '7b2f2f085cc50e'
+EMAIL_PORT = '2525'
