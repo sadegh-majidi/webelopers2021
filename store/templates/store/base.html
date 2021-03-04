@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
-<div id="navbar">
-  <a id="login" href="https://google.com">Login</a>
-  <a id="register" href="https://google.com">Register</a>
-  <a id="homepage" href="index.html">Home</a>
-</div>
+
+    <body>
+
+        <div id="navbar">
+          <a id="login" href="https://google.com">Login</a>
+          <a id="register" href="https://google.com">Register</a>
+          <a id="homepage" href="/">Home</a>
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </body>
 
 </html>
