@@ -80,8 +80,7 @@ def create_new_product(request):
 def become_seller(request):
     if not hasattr(request.user, 'seller'):
         Seller.objects.create(user=request.user)
-        request.META['context'] = {'success': 'با موفقیت فروشنده شدید'}
-        return dashboard(request)
+        context = {'success': 'با موفقیت فروشنده شدید'}
     else:
-        request.META['context'] = {'error': 'شما فروشنده هستید'}
-        return dashboard(request)
+        context = {'error': 'شما فروشنده هستید'}
+    return render(request=request, template_name='store/dashboard.html', context=context)
