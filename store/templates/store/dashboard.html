@@ -4,11 +4,6 @@
           <a id="make_new_product" href="{% url 'create_new_product' %}">Create New Product</a>
     </div>
 
-    <form id="become_seller" action="{% url 'become_seller' %}" method="POST">
-    {% csrf_token %}
-        <button name="submit">درخواست</button>
-    </form>
-
      {% if error %}
         <div id=”error”>
             {{ error }}
@@ -17,5 +12,10 @@
         <div id=”done”>
             {{ success }}
         </div>
+     {% else %}
+         <form id="become_seller" action="{% url 'become_seller' %}" method="POST">
+             {% csrf_token %}
+             <button name="submit">درخواست</button>
+         </form>
      {% endif %}
 {% endblock %}
