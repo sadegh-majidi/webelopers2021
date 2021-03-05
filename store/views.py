@@ -62,7 +62,11 @@ def contact_us_page(request):
 
 
 def dashboard(request):
-    return render(request=request, template_name='store/dashboard.html', context=request.META.get('context', {}))
+    context = {}
+    if 'context' in request.session:
+        context = request.session['context']
+        del request.session['context']
+    return render(request=request, template_name='store/dashboard.html', context=context)
 
 
 def create_new_product(request):
@@ -83,4 +87,5 @@ def become_seller(request):
         context = {'success': 'با موفقیت فروشنده شدید'}
     else:
         context = {'error': 'شما فروشنده هستید'}
-    return render(request=request, template_name='store/dashboard.html', context=context)
+    request.session['context'] = context
+    return redirect('dashboard')
